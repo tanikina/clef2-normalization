@@ -16,7 +16,7 @@ TODO: come up with the team name and register for the task.
   - Ivan: prepare some code for inference  
   - Tatiana: prepare some code for tuning adapters and later for post-checking  
   - Ravi: post-processing and best claim selection (will start working on this later)  
-  - Sebastian: has experience with summarizsation with LLMs, we will need some experise on this
+  - Sebastian: has experience with summarization with LLMs, we will need some expertise on this
 
 **Next steps**:
 1. Run the baseline code, have a look at the results for known languages, identify the problems.
