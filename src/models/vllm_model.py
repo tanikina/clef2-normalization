@@ -66,7 +66,7 @@ class VLLMModel(Model):
         else:
             return 'system'
     
-    def predict(self, prompt: Union[str, List[str]], max_tokens: int = None) -> Union[str, List[str]]:
+    def infere(self, prompt: Union[str, List[str]], max_tokens: int = None) -> Union[str, List[str]]:
         if max_tokens is None:
             max_tokens = self.max_tokens
             
@@ -88,24 +88,28 @@ class VLLMModel(Model):
                 if self.system_prompt and self._get_system_role() == "system":
                     messages = [
                         { "role": "system", "content": self.system_prompt },
-                        { "role": "user", "content": prompt }
+                        { "role": "user", "content": p }
                     ]
                 elif self.system_prompt:
                     messages = [
-                        { "role": "user", "content": f'{self.system_prompt}\n\n{prompt}' }
+                        { "role": "user", "content": f'{self.system_prompt}\n\n{p}' }
                     ]
                 else:
                     messages = [
-                        { "role": "user", "content": prompt }
+                        { "role": "user", "content": p }
                     ]
+                    
+                print(messages)
                 
                 output = self.llm.chat(messages, sampling_params)
+                print(output)
                 output = output[0].outputs[0].text    
             else:
                 if self.system_prompt is not None:
-                    prompt = f'{self.system_prompt}\n\n{prompt}'
+                    p = f'{self.system_prompt}\n\n{p}'
                 
-                output = self.llm.generate(prompt, sampling_params)
+                output = self.llm.generate(p, sampling_params)
+                print(output)
                 output = output[0].outputs[0].text
         
             answers.append(output.strip())

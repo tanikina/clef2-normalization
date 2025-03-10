@@ -1,0 +1,11 @@
+model:
+    model_type: huggingface
+    name: meta-llama/Llama-3.1-8B-Instruct
+    quantization: False
+    max_tokens: 1024
+    do_sample: False
+    temperature: 0.7
+    system_prompt: "You are a fact-checker taksed to normalize the content of the social media post into a single claim."
+prompt:
+    prompt_type: prompt
+    template: "Social media posts: {post}.\n\nNormalize the social media post into a single claim."
