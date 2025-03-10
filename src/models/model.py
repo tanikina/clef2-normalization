@@ -14,6 +14,5 @@ class Model:
     def infere(self, prompt: str):
         raise NotImplementedError
     
-    
     def __call__(self, **kwargs: Any) -> Any:
         return self.infere(**kwargs)
