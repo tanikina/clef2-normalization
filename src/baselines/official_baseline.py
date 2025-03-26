@@ -8,6 +8,9 @@ import pandas as pd
 import torch
 import wandb
 
+import logging
+logging.disable(logging.WARNING)
+
 if torch.cuda.is_available():
     print("GPU is enabled.")
     print(
