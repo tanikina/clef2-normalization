@@ -173,7 +173,7 @@ def train_baseline(
         compute_metrics=baseline.metrics_func,
         train_dataset=tokenized_ds["train"],
         eval_dataset=tokenized_ds["validation"],
-        tokenizer=baseline.tokenizer,
+        processing_class=baseline.tokenizer,
         callbacks=[early_stop],
     )
 
