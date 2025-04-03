@@ -130,15 +130,17 @@ def train_baseline(
         {"train": Dataset.from_pandas(train_data), "validation": Dataset.from_pandas(val_data)}
     )
 
-    val_combined = copy.deepcopy(ds_original["validation"])
     if add_subsampled_val_set:
         print("Adding an extra validation set (10%) of the training split.")
         # add 10% of the original
+        val_combined = copy.deepcopy(ds_original["validation"])
         splitted_train = ds_original["train"].train_test_split(test_size=0.1, seed=42)
         subsampled_val = splitted_train["test"]
         for item in subsampled_val:
             val_combined = val_combined.add_item(item)
-    ds = DatasetDict({"train": splitted_train["train"], "validation": val_combined})
+        ds = DatasetDict({"train": splitted_train["train"], "validation": val_combined})
+    else:
+        ds = ds_original
 
     tokenized_ds = ds.map(
         baseline.tokenize_sample_data,
