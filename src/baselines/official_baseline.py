@@ -110,7 +110,7 @@ def train_baseline(
     wandb.init(tags=["clef2-baseline", language])
 
     model_code = (
-        model_checkpoint.split("/")[-1] + "-lr-" + str(learning_rate) + "-seed-" + str(seed)
+        language + "_" + model_checkpoint.split("/")[-1] + "-lr-" + str(learning_rate) + "-seed-" + str(seed)
     )
 
     baseline = Baseline(model_checkpoint)
@@ -148,7 +148,7 @@ def train_baseline(
     early_stop = EarlyStoppingCallback(early_stopping_patience=5)
 
     training_args = Seq2SeqTrainingArguments(
-        output_dir=f"saved-models-{model_code}",
+        output_dir=f"saved-checkpoints-{model_code}",
         num_train_epochs=max_epochs,  # epochs
         seed=seed,
         learning_rate=learning_rate,
@@ -166,6 +166,7 @@ def train_baseline(
         eval_strategy="steps",
         logging_steps=10,
         push_to_hub=False,
+        save_total_limit=1,
         load_best_model_at_end=True,
     )
 
@@ -214,10 +215,10 @@ def train_baseline(
     print(trainer.evaluate())
 
 
-def run_inference(model_checkpoint, learning_rate, seed, input_texts):
+def run_inference(model_checkpoint, learning_rate, seed, language, input_texts):
     # Inference
     model_code = (
-        model_checkpoint.split("/")[-1] + "-lr-" + str(learning_rate) + "-seed-" + str(seed)
+        language + "_" + model_checkpoint.split("/")[-1] + "-lr-" + str(learning_rate) + "-seed-" + str(seed)
     )
     # Load model and tokenizer
     model = AutoModelForSeq2SeqLM.from_pretrained(f"./{model_code}/finetuned_{model_code}")
