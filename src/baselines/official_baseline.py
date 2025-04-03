@@ -106,6 +106,7 @@ def train_baseline(
     max_epochs: int = 20,
     learning_rate: float = 5e-4,
     seed: int = 42,
+    add_subsampled_val_set: bool = False,
 ):
     wandb.init(tags=["clef2-baseline", language])
 
@@ -129,13 +130,14 @@ def train_baseline(
         {"train": Dataset.from_pandas(train_data), "validation": Dataset.from_pandas(val_data)}
     )
 
-    # add 10% of the original
-    splitted_train = ds_original["train"].train_test_split(test_size=0.1, seed=42)
-    # TODO: check if there is a more efficient way of combining the two splits
     val_combined = copy.deepcopy(ds_original["validation"])
-    subsampled_val = splitted_train["test"]
-    for item in subsampled_val:
-        val_combined = val_combined.add_item(item)
+    if add_subsampled_val_set:
+        print("Adding an extra validation set (10%) of the training split.")
+        # add 10% of the original
+        splitted_train = ds_original["train"].train_test_split(test_size=0.1, seed=42)
+        subsampled_val = splitted_train["test"]
+        for item in subsampled_val:
+            val_combined = val_combined.add_item(item)
     ds = DatasetDict({"train": splitted_train["train"], "validation": val_combined})
 
     tokenized_ds = ds.map(
@@ -193,26 +195,28 @@ def train_baseline(
     print("Training done")
 
     # Evaluation on the development set (both original and subsampled)
-    print("Evaluation on both validation splits")
+    print("Evaluation on the complete validation split")
     print(trainer.evaluate())
-    tokenized_validation_original = ds_original["validation"].map(
-        baseline.tokenize_sample_data,
-        remove_columns=["post", "normalized claim"],
-        batched=True,
-        batch_size=1,
-    )
-    trainer.eval_dataset = tokenized_validation_original
-    print("Evaluation on the official validation split")
-    print(trainer.evaluate())
-    tokenized_validation_subsampled = subsampled_val.map(
-        baseline.tokenize_sample_data,
-        remove_columns=["post", "normalized claim"],
-        batched=True,
-        batch_size=1,
-    )
-    trainer.eval_dataset = tokenized_validation_subsampled
-    print("Evaluation on the validation split subsampled from the training set")
-    print(trainer.evaluate())
+    if add_subsampled_val_set:
+        tokenized_validation_original = ds_original["validation"].map(
+            baseline.tokenize_sample_data,
+            remove_columns=["post", "normalized claim"],
+            batched=True,
+            batch_size=1,
+        )
+        trainer.eval_dataset = tokenized_validation_original
+        print("Evaluation on the official validation split")
+        print(trainer.evaluate())
+
+        tokenized_validation_subsampled = subsampled_val.map(
+            baseline.tokenize_sample_data,
+            remove_columns=["post", "normalized claim"],
+            batched=True,
+            batch_size=1,
+        )
+        trainer.eval_dataset = tokenized_validation_subsampled
+        print("Evaluation on the validation split subsampled from the training set")
+        print(trainer.evaluate())
 
 
 def run_inference(model_checkpoint, learning_rate, seed, language, input_texts):
@@ -251,6 +255,7 @@ if __name__ == "__main__":
     parser.add_argument("--max_epochs", type=int, default=20)
     parser.add_argument("--learning_rate", type=float, default=5e-4)
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--add_subsampled_val_set", action="store_true")
 
     args = parser.parse_args()
     print("Parameters:")
@@ -265,4 +270,5 @@ if __name__ == "__main__":
         args.max_epochs,
         args.learning_rate,
         args.seed,
+        args.add_subsampled_val_set,
     )
