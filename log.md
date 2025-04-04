@@ -1,24 +1,23 @@
-## Log file documenting the progress on the Shared Task
+# Experimentation Log
 
-### 07.03.25 Discussion and task distribution
-Participants: Natalia, Ivan, Sebastian, Ravi, Tatiana
+This file is meant to log the development progress of the shared task. Please log relevant experiments including a short motivation, the commands, and a summary of the obtained results or follow-up ideas.
 
-**Issues**: sometimes a single post may contain multiple claims, it is not clear what is the best strategy for claim extraction in this case (this needs some evaluation on the development data).
+**Usage:** If you want to add content, please create a new section with the current date as heading (if not yet available), and structure your content e.g. as follows:
 
-**Demonstrations**: based on cosine similarity to the available claims, also the prompt should contain a definition of normalized claims, e.g. from [(Sundriyal et al., 2023)](https://aclanthology.org/2023.findings-emnlp.439/).
+```markdown
+## 2025-03-27
 
-**Open questions**: we are not sure yet whether we want to try fine-tuning language models with adapters or whether out-of-the-box inference with large enough models will already work fine.
+### CLEF Baseline: Learning Rate Optimization
 
-TODO: come up with the team name and register for the task.
-
-**Task distribution**:
-  - Natalia: pre-processing, demostration selection
-  - Ivan: prepare some code for inference  
-  - Tatiana: prepare some code for tuning adapters and later for post-checking  
-  - Ravi: post-processing and best claim selection (will start working on this later)  
-  - Sebastian: has experience with summarization with LLMs, we will need some expertise on this
-
-**Next steps**:
-1. Run the baseline code, have a look at the results for known languages, identify the problems.
-2. Come up with the "normalization strategy": what are the best prompts, do we need to translate the instruction in the target language etc?
-3. Collect information about multilingual models, start testing them with out-of-the-box inference (when the code is ready).
+- training the models on the English data and testing learning rates in the following range: 1e-3, 5e-4, 3e-4, 1e-4, for each learning rate we train 3 models with different seeds.
+  - command: see `scripts/baselines_cluster/clef-baseline-lr-search.sh`
+  - wandb (weights & biases) project: https://wandb.ai/tanikina/clef2-normalization-src_baselines (this is just an example!)
+  - metric values:
+    |         | val-official-METEOR | val-sampled-METEOR | combined-val-METEOR |
+    |---------|---------------------|--------------------|---------------------|
+    | lr-1e-3 | 0.555               | 0.600              | 0.578               |
+    | lr-5e-4 | .....               | .....              | .....               |
+    | lr-3e-4 | .....               | .....              | .....               |
+    | lr-1e-4 | .....               | .....              | .....               |
+  - outcome: the best learning rate is ...
+```

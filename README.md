@@ -1,17 +1,19 @@
 # CLEF Task 2: Claim Normalization
 
-The text below was copied fro the official task repository: [https://gitlab.com/checkthat_lab/clef2025-checkthat-lab/-/tree/main/task2](https://gitlab.com/checkthat_lab/clef2025-checkthat-lab/-/tree/main/task2)
+The text below was copied from the official task repository: [https://gitlab.com/checkthat_lab/clef2025-checkthat-lab/-/tree/main/task2](https://gitlab.com/checkthat_lab/clef2025-checkthat-lab/-/tree/main/task2)
 
 Given a noisy, unstructured social media post, the task is to simplify it into a concise form.
 This is a text generation task in which systems have to generate the normlized claims for the goven social media posts.
 
 The task comprises two settings:
-- **Monolingual**: In this setup, the training, development, and test datasets are all provided for the specific language. The model is trained, validated, and tested using data exclusively from this single language, meaning that all the stages (training, validation, and testing) are confined to the same language. This setup ensures that the model learns language-specific patterns and structures. Languages: English, German, French, Spanish, Portugese, Hindi, Marathi, Punjabi, Tamil, Arabic, Thai, Indonesian, and Polish. 
-- **Zero-shot**: In this case, only the test data is available for the specific language, and you are not provided with any training or development data for that language. You are free to use data from other languages for training your models, or you can choose to conduct a zero-shot experiment using LLMs where the model is tested on the target language without being exposed to any training data. This approach evaluates how well the model can generalize to unseen languages. Languages: Dutch, Romanian, Bengali, Telugu, Korean, Greek, and Czech. 
+
+- **Monolingual**: In this setup, the training, development, and test datasets are all provided for the specific language. The model is trained, validated, and tested using data exclusively from this single language, meaning that all the stages (training, validation, and testing) are confined to the same language. This setup ensures that the model learns language-specific patterns and structures. Languages: English, German, French, Spanish, Portuguese, Hindi, Marathi, Punjabi, Tamil, Arabic, Thai, Indonesian, and Polish.
+- **Zero-shot**: In this case, only the test data is available for the specific language, and you are not provided with any training or development data for that language. You are free to use data from other languages for training your models, or you can choose to conduct a zero-shot experiment using LLMs where the model is tested on the target language without being exposed to any training data. This approach evaluates how well the model can generalize to unseen languages. Languages: Dutch, Romanian, Bengali, Telugu, Korean, Greek, and Czech.
 
 __Table of contents:__
 
 <!-- - [Evaluation Results](#evaluation-results) -->
+
 - [List of Versions](#list-of-versions)
 - [Contents of the Task 2 Directory](#contents-of-the-repository)
 - [Input Data Format](#input-data-format)
@@ -52,25 +54,29 @@ __Table of contents:__
 ## Contents of the Task 2 Directory
 
 - Data folder: [data](./data)
-  - Contains a subfolder for  train, test and dev sets. 
+  - Contains a subfolder for  train, test and dev sets.
   - Each split has subfolders for each language, in the csv format.
+
 <!-- - Main folder: [baseline](./baseline)<br/>
   - Contains a single file, baseline.py, used to train a baseline and provide predictions.
 - Main folder: [scorer](./scorer)<br/>
   - Contains a single file, evaluate.py, that checks the format of a submission and evaluate the various metrics. -->
+
 - [README.md](./README.md)
 
 ## Input Data Format
 
 The data will be provided as a CSV file with two columns:
-> post, <TAB> normalized claim 
+
+> post, <TAB> normalized claim
 
 ## Output Data Format
 
 The output must be a CSV format with only one column:
+
 > normalized claim.
 
-DO NOT shuffle the test data. 
+DO NOT shuffle the test data.
 
 ## Evaluation Metrics
 
@@ -109,7 +115,7 @@ The baseline is a logistic regressor trained on a Sentence-BERT multilingual rep
 <!-- ### Task 3: Multi-Class Fake News Detection of News Articles
 
 For this task, we have created a baseline system. The baseline system can be found at https://zenodo.org/record/6362498
- --> 
+ -->
 
 ## Submission
 
@@ -121,6 +127,6 @@ Information regarding the task and data can be found in the following paper:
 
 > Megha Sundriyal, Tanmoy Chakraborty, and Preslav Nakov. [From Chaos to Clarity: Claim Normalization to Empower Fact-Checking.](https://aclanthology.org/2023.findings-emnlp.439/) Findings of the Association for Computational Linguistics: EMNLP 2023. 2023. pp. 6594 - 6609.
 
-
 ## Credits
+
 Please find it on the task website: https://checkthat.gitlab.io/clef2025/task2/
