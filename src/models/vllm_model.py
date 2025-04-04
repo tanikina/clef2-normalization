@@ -98,18 +98,14 @@ class VLLMModel(Model):
                     messages = [
                         { "role": "user", "content": p }
                     ]
-                    
-                print(messages)
                 
                 output = self.llm.chat(messages, sampling_params)
-                print(output)
                 output = output[0].outputs[0].text    
             else:
                 if self.system_prompt is not None:
                     p = f'{self.system_prompt}\n\n{p}'
                 
                 output = self.llm.generate(p, sampling_params)
-                print(output)
                 output = output[0].outputs[0].text
         
             answers.append(output.strip())
