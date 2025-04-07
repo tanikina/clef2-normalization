@@ -72,12 +72,6 @@ def main():
     
     # log metrics
     wandb.log(metrics)
-    
-    print(metrics)
-    # save metrics
-    with open(f'./results/{model_name}/{args.prompt_name}/metrics.txt', 'w') as f:
-        f.write(str(metrics))
-        
     wandb.finish()
     
 
