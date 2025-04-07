@@ -61,10 +61,7 @@ class VLLMModel(Model):
         """
         Get the system role.
         """
-        if 'gemma' in self.name:
-            return None
-        else:
-            return 'system'
+        return 'system'
     
     def infere(self, prompt: Union[str, List[str]], max_tokens: int = None) -> Union[str, List[str]]:
         if max_tokens is None:

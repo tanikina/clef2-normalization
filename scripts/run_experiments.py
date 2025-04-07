@@ -6,16 +6,28 @@ os.environ['VLLM_WORKER_MULTIPROC_METHOD'] = 'spawn'
 
 MODELS = [
     {
-        "name": "meta-llama/Llama-3.1-8B-Instruct",
+        "name": "meta-llama/Llama-3.1-70B-Instruct",
+        "quantization": True
+    },
+    {
+        "name": "google/gemma-3-27b-it",
+        "quantization": True
+    },
+    {
+        "name": "Qwen/Qwen2.5-72B-Instruct",
+        "quantization": True
+    },
+    {
+        "name": "utter-project/EuroLLM-9B-Instruct",
         "quantization": False
     },
     {
-        "name": "google/gemma-3-4b-it",
-        "quantization": False
+        "name": "mistralai/Mistral-Large-Instruct-2411",
+        "quantization": True
     },
     {
-        "name": "Qwen/Qwen2.5-7B-Instruct",
-        "quantization": False
+        "name": "google/gemma-3-12b-it",
+        "quantization": True
     },
 ]
 
@@ -37,7 +49,7 @@ LANGUAGES = [
 
 def main():
     for model in MODELS:
-        with open('./configs/baseline.yaml', 'r') as f:
+        with open('./configs/chatgpt_template.yaml', 'r') as f:
             config = yaml.safe_load(f)
                 
         config['model']['name'] = model['name']
@@ -46,14 +58,14 @@ def main():
         print(config['prompt']['template'])
         
         model_name = model['name'].split('/')[1]
-        print(f'./configs/baseline-{model_name}.yaml')
-        with open(f'./configs/baseline-{model_name}.yaml', 'w') as f:
+        print(f'./configs/chatgpt_template-{model_name}.yaml')
+        with open(f'./configs/chatgpt_template-{model_name}.yaml', 'w') as f:
             yaml.dump(config, f)
                 
         for language in LANGUAGES:           
-            os.system(f'python -m scripts.inference --config ./configs/baseline-{model_name}.yaml --data_path ./data/train/train-{language}.csv --prompt_name baseline')
+            os.system(f'python -m scripts.inference --config ./configs/chatgpt_template-{model_name}.yaml --data_path ./data/dev/dev-{language}.csv --prompt_name chatgpt_template')
 
-        os.remove(f'./configs/baseline-{model_name}.yaml')
+        os.remove(f'./configs/chatgpt_template-{model_name}.yaml')
 
 if __name__ == '__main__':
     main()
