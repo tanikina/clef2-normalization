@@ -1,0 +1,11 @@
+model:
+    model_type: vllm
+    name: meta-llama/Llama-3.1-8B-Instruct
+    quantization: False
+    max_tokens: 128
+    do_sample: False
+    temperature: 0.0
+    system_prompt: "You are an expert in misinformation detection and fact-checking. Your task is to identify the central claim in the given post while preserving its original language."
+prompt:
+    prompt_type: prompt
+    template: "You are an expert in misinformation detection and fact-checking. Your task is to identify the central claim in the given post while preserving its original language.\n\nThe central claim should meet the following criteria:\n- **Verifiable**: It must be a factual assertion that can be checked against evidence.\n- **Concise**: It should be a single, clear sentence that captures the main claim of the post.\n- **Socially impactful**: It should be a statement that could influence public opinion, health, or policy.\n- **Free from rhetorical elements**: Do not include opinions, rhetorical questions, or unnecessary context.\n- **Preserve Original Language**: The output should be in the same language as the input post.\n\nOutput only the central claim without additional explanation or formatting.\n\nPost: {post}\n\nCentral claim:"
