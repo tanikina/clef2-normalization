@@ -29,6 +29,26 @@ MODELS = [
         "name": "google/gemma-3-12b-it",
         "quantization": True
     },
+    {
+        "name": "Qwen/Qwen2.5-3B-Instruct",
+        "quantization": False
+    },
+    {
+        "name": "Qwen/Qwen2.5-1.5B-Instruct",
+        "quantization": False
+    },
+    {
+        "name": "Qwen/Qwen2.5-0.5B-Instruct",
+        "quantization": False
+    },
+    {
+        "name": "meta-llama/Llama-3.2-3B-Instruct",
+        "quantization": False
+    },
+    {
+        "name": "meta-llama/Llama-3.2-1B-Instruct",
+        "quantization": False
+    },
 ]
 
 LANGUAGES = [
@@ -49,7 +69,7 @@ LANGUAGES = [
 
 def main():
     for model in MODELS:
-        with open('./configs/chatgpt_template.yaml', 'r') as f:
+        with open('./configs/baseline.yaml', 'r') as f:
             config = yaml.safe_load(f)
                 
         config['model']['name'] = model['name']
@@ -58,14 +78,13 @@ def main():
         print(config['prompt']['template'])
         
         model_name = model['name'].split('/')[1]
-        print(f'./configs/chatgpt_template-{model_name}.yaml')
-        with open(f'./configs/chatgpt_template-{model_name}.yaml', 'w') as f:
+        with open(f'./configs/baseline-{model_name}.yaml', 'w') as f:
             yaml.dump(config, f)
                 
         for language in LANGUAGES:           
-            os.system(f'python -m scripts.inference --config ./configs/chatgpt_template-{model_name}.yaml --data_path ./data/dev/dev-{language}.csv --prompt_name chatgpt_template')
+            os.system(f'python -m scripts.inference --config ./configs/baseline-{model_name}.yaml --data_path ./data/dev/dev-{language}.csv --prompt_name baseline')
 
-        os.remove(f'./configs/chatgpt_template-{model_name}.yaml')
+        os.remove(f'./configs/baseline-{model_name}.yaml')
 
 if __name__ == '__main__':
     main()
