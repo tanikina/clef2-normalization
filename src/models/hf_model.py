@@ -119,10 +119,10 @@ class HFModel(Model):
         """
         Get the system role.
         """
-        if 'gemma' in self.model_name or 'mistral' in self.model_name:
-            return None
-        else:
-            return 'system'
+        # if 'gemma' in self.model_name or 'mistral' in self.model_name:
+        #     return None
+        # else:
+        return 'system'
     
     def _terminators(self) -> List[int]:
         """
