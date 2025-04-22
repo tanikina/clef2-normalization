@@ -1,7 +1,8 @@
 model:
     model_type: huggingface
     #name: Qwen/Qwen2.5-3B-Instruct-GPTQ-Int8
-    name: Qwen/Qwen2.5-7B-Instruct
+    #name: Qwen/Qwen2.5-7B-Instruct
+    name: circulus/gemma-3-27b-it-gptq
     quantization: False
     max_tokens: 1024
     do_sample: True
@@ -9,4 +10,4 @@ model:
     system_prompt: "You are a fact-checker taksed to normalize the content of the social media post into a single claim."
 prompt:
     prompt_type: prompt
-    template: "Social media posts: {post}.\n\nNormalize the social media post into a single claim."
+    template: "Normalize the social media post into a single claim.\n\nExamples: {examples}\n\nSocial media post: {post}\n\nNormalized claim: "

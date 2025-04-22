@@ -6,6 +6,8 @@ from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 
 import logging
 
+device = "cuda" if torch.cuda.is_available() else "cpu"
+
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
