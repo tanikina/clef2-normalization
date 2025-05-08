@@ -1,7 +1,7 @@
 # Results : Monolingual Experiments
 
 ## Approach 1: 
-We prompted LLM to create a best normalized claim from the unstructured data with two examples from the train set as samples
+We prompted LLMs to create a best normalized claim from the unstructured data with two examples from the train set as samples and evaluated on dev set
 
 | model                 |   ara |   deu |   eng |   fra |    hi |    mr |   msa |    pa |   pol |   por |   spa |    ta |   tha |
 |-----------------------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|
@@ -11,7 +11,7 @@ We prompted LLM to create a best normalized claim from the unstructured data wit
 
 
 ## Approach 2: 
-We prompted LLM to summarize the unstructed data into a normalized claim, we gave two examples from the train set.
+We prompted LLMs to summarize the unstructured data into a normalized claim, we gave two examples from the train set and evaluated on dev set
 
 | model                 |   ara |   deu |   eng |   fra |    hi |    mr |   msa |    pa |   pol |   por |   spa |    ta |   tha |
 |-----------------------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|
