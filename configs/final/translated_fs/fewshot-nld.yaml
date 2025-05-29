@@ -1,0 +1,46 @@
+model:
+  do_sample: false
+  enable_thinking: false
+  max_tokens: 1024
+  model_type: vllm
+  name: Qwen/Qwen3-8B
+  quantization: false
+  system_prompt: U bent een expert in verkeerde informatie-detectie en feitencontrole.
+    Uw taak is om de centrale claim in de gegeven post te identificeren en tegelijkertijd
+    de oorspronkelijke taal te behouden.
+  temperature: 0.0
+prompt:
+  prompt_type: prompt
+  template: 'U bent een expert in verkeerde informatie-detectie en feitencontrole.
+    Uw taak is om de centrale claim in de gegeven post te identificeren en tegelijkertijd
+    de oorspronkelijke taal te behouden.
+
+
+    De centrale claim moet voldoen aan de volgende criteria:
+
+    - ** Verifieerbaar **: het moet een feitelijke bewering zijn die kan worden gecontroleerd
+    tegen bewijsmateriaal.
+
+    - ** Bondig **: het moet een enkele, duidelijke zin zijn die de hoofdclaim van
+    de post vastlegt.
+
+    - ** Sociaal impactvol **: het zou een verklaring moeten zijn die de publieke
+    opinie, gezondheid of beleid zou kunnen beïnvloeden.
+
+    - ** Vrij van retorische elementen **: neem geen meningen, retorische vragen of
+    onnodige context op.
+
+    - ** Oorspronkelijke taal behouden **: de uitvoer moet in dezelfde taal zijn als
+    het invoerpost.
+
+
+    Output alleen de centrale claim zonder extra uitleg of opmaak.
+
+
+    Voorbeelden: {examples}
+
+
+    Bericht: {post}
+
+
+    Genormaliseerde claim:'

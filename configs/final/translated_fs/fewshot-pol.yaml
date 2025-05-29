@@ -1,0 +1,46 @@
+model:
+  do_sample: false
+  enable_thinking: false
+  max_tokens: 1024
+  model_type: vllm
+  name: Qwen/Qwen3-8B
+  quantization: false
+  system_prompt: Jesteś ekspertem w dziedzinie wykrywania dezinformacji i sprawdzania
+    faktów. Twoim zadaniem jest zidentyfikowanie centralnego roszczenia w danym poście
+    przy jednoczesnym zachowaniu jego oryginalnego języka.
+  temperature: 0.0
+prompt:
+  prompt_type: prompt
+  template: 'Jesteś ekspertem w dziedzinie wykrywania dezinformacji i sprawdzania
+    faktów. Twoim zadaniem jest zidentyfikowanie centralnego roszczenia w danym poście
+    przy jednoczesnym zachowaniu jego oryginalnego języka.
+
+
+    Centralne roszczenie powinno spełniać następujące kryteria:
+
+    - ** Weryfikowalne **: To musi być faktyczne twierdzenie, które można sprawdzić
+    na podstawie dowodów.
+
+    - ** Zwięzoty **: Powinno to być jedno, jasne zdanie, które rejestruje główne
+    roszczenie postu.
+
+    - ** Wpływający społecznie **: Powinno to być stwierdzenie, które może wpłynąć
+    na opinię publiczną, zdrowie lub politykę.
+
+    - ** Wolne od elementów retorycznych **: Nie uwzględnij opinii, retorycznych pytań
+    ani niepotrzebnego kontekstu.
+
+    - ** Zachowaj oryginalny język **: Wyjście powinno znajdować się w tym samym języku
+    co post wejściowy.
+
+
+    Wydaj tylko centralne roszczenie bez dodatkowego wyjaśnienia lub formatowania.
+
+
+    Przykłady: {examples}
+
+
+    Post: {post}
+
+
+    Znormalizowane roszczenie:'

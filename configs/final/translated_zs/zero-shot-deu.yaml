@@ -1,0 +1,43 @@
+model:
+  do_sample: false
+  enable_thinking: false
+  max_tokens: 4096
+  model_type: huggingface
+  name: Qwen/Qwen3-8B
+  quantization: false
+  system_prompt: Sie sind ein Experte für Fehlinformationserkennung und Faktenprüfung.
+    Ihre Aufgabe ist es, den zentralen Anspruch in dem angegebenen Beitrag zu identifizieren
+    und gleichzeitig seine ursprüngliche Sprache zu erhalten.
+  temperature: 0.0
+prompt:
+  prompt_type: prompt
+  template: 'Sie sind ein Experte für Fehlinformationserkennung und Faktenprüfung.
+    Ihre Aufgabe ist es, den zentralen Anspruch in dem angegebenen Beitrag zu identifizieren
+    und gleichzeitig seine ursprüngliche Sprache zu erhalten.
+
+
+    Die zentrale Behauptung sollte die folgenden Kriterien erfüllen:
+
+    - ** Überprüfbar **: Es muss eine sachliche Behauptung sein, die gegen Beweise
+    überprüft werden kann.
+
+    - ** präzise **: Es sollte ein einzelner, klarer Satz sein, der den Hauptanspruch
+    der Post erfasst.
+
+    - ** Sozial wirksam **: Es sollte eine Erklärung sein, die die öffentliche Meinung,
+    Gesundheit oder Politik beeinflussen könnte.
+
+    - ** frei von rhetorischen Elementen **: Fügen Sie keine Meinungen, rhetorische
+    Fragen oder unnötigen Kontext ein.
+
+    - ** Erhalten Sie die Originalsprache **: Die Ausgabe sollte in der gleichen Sprache
+    wie der Eingabebestand sein.
+
+
+    Ausgabe nur den zentralen Anspruch ohne zusätzliche Erläuterung oder Formatierung.
+
+
+    Beitrag: {post}
+
+
+    Normalisierte Behauptung:'

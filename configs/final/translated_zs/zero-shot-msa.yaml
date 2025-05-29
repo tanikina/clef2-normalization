@@ -1,0 +1,43 @@
+model:
+  do_sample: false
+  enable_thinking: false
+  max_tokens: 4096
+  model_type: huggingface
+  name: Qwen/Qwen3-8B
+  quantization: false
+  system_prompt: Anda seorang pakar dalam pengesanan maklumat yang salah dan pemeriksaan
+    fakta. Tugas anda adalah untuk mengenal pasti tuntutan pusat dalam jawatan yang
+    diberikan semasa memelihara bahasa asalnya.
+  temperature: 0.0
+prompt:
+  prompt_type: prompt
+  template: 'Anda seorang pakar dalam pengesanan maklumat yang salah dan pemeriksaan
+    fakta. Tugas anda adalah untuk mengenal pasti tuntutan pusat dalam jawatan yang
+    diberikan semasa memelihara bahasa asalnya.
+
+
+    Tuntutan pusat harus memenuhi kriteria berikut:
+
+    - ** Diverifikasi **: Ia mesti menjadi pernyataan faktual yang boleh diperiksa
+    terhadap bukti.
+
+    - ** Ringkas **: Ia harus menjadi satu ayat yang jelas yang menangkap tuntutan
+    utama jawatan itu.
+
+    - ** Kesan sosial **: Ia harus menjadi kenyataan yang boleh mempengaruhi pendapat,
+    kesihatan, atau dasar umum.
+
+    - ** Percuma dari Elemen Retorik **: Jangan masukkan pendapat, soalan retorik,
+    atau konteks yang tidak perlu.
+
+    - ** Memelihara bahasa asal **: Output harus berada dalam bahasa yang sama dengan
+    pos input.
+
+
+    Output hanya tuntutan pusat tanpa penjelasan atau pemformatan tambahan.
+
+
+    Siaran: {post}
+
+
+    Tuntutan yang dinormalisasi:'

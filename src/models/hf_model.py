@@ -57,6 +57,10 @@ class HFModel(Model):
             self.max_memory = eval(kwargs['max_memory']) if kwargs['max_memory'] else None
         self.system_prompt = kwargs['system_prompt'] if kwargs['system_prompt'] != 'None' else None
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
+        self.enable_thinking = kwargs.get('enable_thinking', True)
+        self.top_k = kwargs.get('top_k', 50)
+        self.top_p = kwargs.get('top_p', 1.0)
+        self.min_p = kwargs.get('min_p', None)
         self.load()
         
     def _load_model(self) -> None:
@@ -183,7 +187,8 @@ class HFModel(Model):
                 inputs = self.tokenizer.apply_chat_template(
                     messages, 
                     add_generation_prompt=True,
-                    return_tensors='pt'
+                    return_tensors='pt',
+                    enable_thinking=self.enable_thinking,
                 ).to(self.device)
 
             else:
@@ -209,6 +214,9 @@ class HFModel(Model):
                 output_logits=True,
                 do_sample=self.do_sample,
                 temperature=self.temperature,
+                top_k=self.top_k,
+                top_p=self.top_p,
+                min_p=self.min_p,
             )
             generated_ids = generated_output.sequences
             

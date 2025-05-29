@@ -1,0 +1,46 @@
+model:
+  do_sample: false
+  enable_thinking: false
+  max_tokens: 1024
+  model_type: vllm
+  name: Qwen/Qwen3-8B
+  quantization: false
+  system_prompt: Eres un experto en detección de información errónea y verificación
+    de hechos. Su tarea es identificar el reclamo central en la publicación dada mientras
+    preserva su lenguaje original.
+  temperature: 0.0
+prompt:
+  prompt_type: prompt
+  template: 'Eres un experto en detección de información errónea y verificación de
+    hechos. Su tarea es identificar el reclamo central en la publicación dada mientras
+    preserva su lenguaje original.
+
+
+    El reclamo central debe cumplir con los siguientes criterios:
+
+    - ** Verificable **: Debe ser una afirmación objetiva que se pueda verificar contra
+    la evidencia.
+
+    - ** Conciso **: Debe ser una oración única y clara que captura el reclamo principal
+    del puesto.
+
+    - ** Socialmente impactante **: Debería ser una declaración que pueda influir
+    en la opinión pública, la salud o la política.
+
+    - ** Libre de elementos retóricos **: No incluya opiniones, preguntas retóricas
+    o contexto innecesario.
+
+    - ** Preserve el lenguaje original **: La salida debe estar en el mismo idioma
+    que la publicación de entrada.
+
+
+    Salir solo el reclamo central sin explicación o formateo adicional.
+
+
+    Ejemplos: {examples}
+
+
+    Publicar: {post}
+
+
+    Reclamación normalizada:'
