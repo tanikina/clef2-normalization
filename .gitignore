@@ -5,3 +5,13 @@ results/*
 !results/.gitkeep
 
 wandb/*
+src/finetuning/wandb/*
+scripts/qwen_lora/*
+src/
+clean_data/*
+data/**/*.jsonlines
+data/**/*-all.csv
+data/dspy_data/*
+final_results/*
+filtered/*
+final_results/*

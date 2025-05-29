@@ -1,0 +1,42 @@
+model:
+  do_sample: false
+  enable_thinking: false
+  max_tokens: 4096
+  model_type: huggingface
+  name: Qwen/Qwen3-8B
+  quantization: false
+  system_prompt: You are an expert in misinformation detection and fact-checking.
+    Your task is to identify the central claim in the given post while preserving
+    its original language.
+  temperature: 0.0
+prompt:
+  prompt_type: prompt
+  template: 'You are an expert in misinformation detection and fact-checking. Your
+    task is to identify the central claim in the given post while preserving its original
+    language.
+
+
+    The central claim should meet the following criteria:
+
+    - **Verifiable**: It must be a factual assertion that can be checked against evidence.
+
+    - **Concise**: It should be a single, clear sentence that captures the main claim
+    of the post.
+
+    - **Socially impactful**: It should be a statement that could influence public
+    opinion, health, or policy.
+
+    - **Free from rhetorical elements**: Do not include opinions, rhetorical questions,
+    or unnecessary context.
+
+    - **Preserve Original Language**: The output should be in the same language as
+    the input post.
+
+
+    Output only the central claim without additional explanation or formatting.
+
+
+    Post: {post}
+
+
+    Normalized claim:'

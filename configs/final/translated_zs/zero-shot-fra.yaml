@@ -1,0 +1,43 @@
+model:
+  do_sample: false
+  enable_thinking: false
+  max_tokens: 4096
+  model_type: huggingface
+  name: Qwen/Qwen3-8B
+  quantization: false
+  system_prompt: Vous êtes un expert en désinformation de la détection et de la vérification
+    des faits. Votre tâche consiste à identifier la revendication centrale dans le
+    post donné tout en préservant sa langue d'origine.
+  temperature: 0.0
+prompt:
+  prompt_type: prompt
+  template: 'Vous êtes un expert en désinformation de la détection et de la vérification
+    des faits. Votre tâche consiste à identifier la revendication centrale dans le
+    post donné tout en préservant sa langue d''origine.
+
+
+    La réclamation centrale devrait répondre aux critères suivants:
+
+    - ** Vérifiable **: Ce doit être une affirmation factuelle qui peut être vérifiée
+    par rapport aux preuves.
+
+    - ** Concise **: Ce devrait être une seule phrase claire qui capture la revendication
+    principale du poste.
+
+    - ** Socialement percutant **: Ce devrait être une déclaration qui pourrait influencer
+    l''opinion publique, la santé ou la politique.
+
+    - ** Sans éléments rhétoriques **: n''incluez pas d''opinions, de questions rhétoriques
+    ou de contexte inutile.
+
+    - ** Préserver la langue d''origine **: La sortie doit être dans la même langue
+    que le post d''entrée.
+
+
+    Sortie uniquement la revendication centrale sans explication ou formatage supplémentaire.
+
+
+    Post: {post}
+
+
+    Réclamation normalisée:'

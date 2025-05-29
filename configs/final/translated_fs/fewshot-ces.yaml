@@ -1,0 +1,46 @@
+model:
+  do_sample: false
+  enable_thinking: false
+  max_tokens: 1024
+  model_type: vllm
+  name: Qwen/Qwen3-8B
+  quantization: false
+  system_prompt: Jste odborník na detekci dezinformací a kontrolu faktů. Vaším úkolem
+    je identifikovat ústřední tvrzení v daném příspěvku a zároveň zachovat svůj původní
+    jazyk.
+  temperature: 0.0
+prompt:
+  prompt_type: prompt
+  template: 'Jste odborník na detekci dezinformací a kontrolu faktů. Vaším úkolem
+    je identifikovat ústřední tvrzení v daném příspěvku a zároveň zachovat svůj původní
+    jazyk.
+
+
+    Ústřední tvrzení by mělo splňovat následující kritéria:
+
+    - ** Ověřitelné **: Musí to být faktické tvrzení, které lze zkontrolovat proti
+    důkazům.
+
+    - ** Strusivní **: Měla by to být jediná, jasná věta, která zachycuje hlavní nárok
+    na post.
+
+    - ** Sociálně ovlivňující **: Mělo by to být prohlášení, které by mohlo ovlivnit
+    veřejné mínění, zdraví nebo politiku.
+
+    - ** bez rétorických prvků **: Nezahrnujte názory, rétorické otázky nebo zbytečný
+    kontext.
+
+    - ** Zachování původního jazyka **: Výstup by měl být ve stejném jazyce jako vstupní
+    příspěvek.
+
+
+    Vydat pouze centrální nárok bez dalšího vysvětlení nebo formátování.
+
+
+    Příklady: {examples}
+
+
+    Příspěvek: {post}
+
+
+    Normalizované tvrzení:'

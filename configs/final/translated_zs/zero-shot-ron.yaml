@@ -1,0 +1,43 @@
+model:
+  do_sample: false
+  enable_thinking: false
+  max_tokens: 4096
+  model_type: huggingface
+  name: Qwen/Qwen3-8B
+  quantization: false
+  system_prompt: Sunteți un expert în detectarea dezinformării și verificarea faptelor.
+    Sarcina dvs. este de a identifica revendicarea centrală în postul dat, păstrându
+    -și limbajul inițial.
+  temperature: 0.0
+prompt:
+  prompt_type: prompt
+  template: 'Sunteți un expert în detectarea dezinformării și verificarea faptelor.
+    Sarcina dvs. este de a identifica revendicarea centrală în postul dat, păstrându
+    -și limbajul inițial.
+
+
+    Cererea centrală ar trebui să îndeplinească următoarele criterii:
+
+    - ** Verificabil **: Trebuie să fie o afirmație faptică care poate fi verificată
+    împotriva probelor.
+
+    - ** Concise **: Ar trebui să fie o singură propoziție clară, care să surprindă
+    principala revendicare a postului.
+
+    - ** Impact social **: Ar trebui să fie o declarație care ar putea influența opinia
+    publică, sănătatea sau politica.
+
+    - ** fără elemente retorice **: Nu includeți opinii, întrebări retorice sau context
+    inutil.
+
+    - ** Păstrați limba originală **: ieșirea ar trebui să fie în aceeași limbă ca
+    postarea de intrare.
+
+
+    Ieșiți numai cererea centrală fără explicații sau formatare suplimentară.
+
+
+    Postare: {post}
+
+
+    Revendicare normalizată:'
