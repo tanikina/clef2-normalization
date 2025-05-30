@@ -66,7 +66,7 @@ python src/models/adapter_inference.py \
 
 The generated normalized claims will be stored in `outputs/task2_{target_lang}.csv`.
 
-In order to select the most representative samples with the ensemble methods, you will need to place all the outputs from different models in a folder with the corresponding language id (e.g. `deu/task2_deu.csv`, `deu/task2_deu_v2.csv` etc.) and then run `python extra/select_samples_ensemble.py --setting={monolingual|zeroshot|all}`.
+In order to select the most representative samples with the ensemble methods, you will need to place all the outputs from different models in a folder with the corresponding language id (e.g. `deu/task2_deu.csv`, `deu/task2_deu_v2.csv` etc.) and then run `python src/utils/select_samples_ensemble.py --setting={monolingual|zeroshot|all}`.
 
 ## Related Work
 
