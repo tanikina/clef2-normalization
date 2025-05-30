@@ -3,12 +3,12 @@
 The task description is based on the official shared task repository: [https://gitlab.com/checkthat_lab/clef2025-checkthat-lab/-/tree/main/task2](https://gitlab.com/checkthat_lab/clef2025-checkthat-lab/-/tree/main/task2)
 
 Given a noisy, unstructured social media post, the task is to simplify it into a concise form.
-This is a text generation task in which systems have to generate the normlized claims for the goven social media posts.
+This is a text generation task in which systems have to generate the normalized claims for the given social media posts.
 
 The task comprises two settings:
 
 - **Monolingual**: In this setup, the training, development, and test datasets are all provided for the specific language. The model is trained, validated, and tested using data exclusively from this single language, meaning that all the stages (training, validation, and testing) are confined to the same language. This setup ensures that the model learns language-specific patterns and structures. Languages: English, German, French, Spanish, Portuguese, Hindi, Marathi, Punjabi, Tamil, Arabic, Thai, Indonesian, and Polish.
-- **Zero-shot**: In this case, only the test data is available for the specific language, and you are not provided with any training or development data for that language. You are free to use data from other languages for training your models, or you can choose to conduct a zero-shot experiment using LLMs where the model is tested on the target language without being exposed to any training data. This approach evaluates how well the model can generalize to unseen languages. Languages: Dutch, Romanian, Bengali, Telugu, Korean, Greek, and Czech.
+- **Zero-shot**: In this case, only the test data is available for the specific language, and you are not provided with any training or development data for that language. You are free to use data from other languages for training your models, or you can choose to conduct a zero-shot experiment using LLMs, where the model is tested on the target language without being exposed to any training data. This approach evaluates how well the model can generalize to unseen languages. Languages: Dutch, Romanian, Bengali, Telugu, Korean, Greek, and Czech.
 
 ## Data
 
@@ -37,7 +37,49 @@ METEOR [(Banerjee and Lavie, 2005)](https://aclanthology.org/W05-0909.pdf).
 
 ## Reproducibility
 
-\[WIP\] For the prompting experiments please refer to [`scripts/prompting_experiments.py`](https://github.com/tanikina/clef2-normalization/blob/main/scripts/prompting_experiments.py) and have a look at the [`notebooks`](https://github.com/tanikina/clef2-normalization/tree/main/notebooks) folder for evaluation.
+### Installation
+
+To set up the environment and replicate our experiments, install Python and the required dependencies using:
+
+```bash
+pip install -r requirements.txt
+```
+
+### Data Preprocessing
+
+To filter and prepare the data for each language (see [Data](#data)), run: 
+
+```
+python src/utils/prepare_data.py --target_lang=all
+```
+
+Before running the prompting experiments, especially for few-shot prompting, you need to further preprocess the data.
+
+To clean the input data and select demonstrations based on cosine similarity (relevant only for prompting experiments), run:
+
+```bash
+python -m scripts.cleanup_inputs_re
+```
+
+This will create a `./clean_data` directory and generate a list of posts for each language, sorted by cosine similarity. These can be used to select few-shot demonstrations.
+
+### Prompting Experiments
+
+#### Step 1: Running the Experiments
+
+After preprocessing, you can reproduce the prompting experiments using:
+
+```bash
+python -m scripts.prompting_experiments
+```
+
+This script will run zero-shot and few-shot prompting experiments across five models, using both translated and English prompts and using filtered and unfiltered data.
+
+### Step 2: Evaluation
+
+To evaluate the outputs of the prompting experiments, open and run the notebook `Final Evaluation.ipynb`.
+
+### Adapter fine-tuning
 
 Adapter fine-tuning with Qwen3 and Gemma3 can be done as follows (example for German with verbose instruction and combined filtered data, replace `model_name` with `unsloth/gemma-3-27b-it` for fine-tuning Gemma3 adapters):
 
@@ -66,6 +108,8 @@ python src/models/adapter_inference.py \
 
 The generated normalized claims will be stored in `outputs/task2_{target_lang}.csv`.
 
+### Ensemble of methods
+
 In order to select the most representative samples with the ensemble methods, you will need to place all the outputs from different models in a folder with the corresponding language id (e.g. `deu/task2_deu.csv`, `deu/task2_deu_v2.csv` etc.) and then run `python src/utils/select_samples_ensemble.py --setting={monolingual|zeroshot|all}`.
 
 ## Related Work
@@ -73,3 +117,15 @@ In order to select the most representative samples with the ensemble methods, yo
 Information regarding the task and data can be found in the following paper:
 
 > Megha Sundriyal, Tanmoy Chakraborty, and Preslav Nakov. [From Chaos to Clarity: Claim Normalization to Empower Fact-Checking.](https://aclanthology.org/2023.findings-emnlp.439/) Findings of the Association for Computational Linguistics: EMNLP 2023. 2023. pp. 6594 - 6609.
+
+## Paper citing
+
+If you use the code or information from this repository, please cite our paper.
+
+```bibtex
+@misc{anikina2025dfkinit2b,
+      title={dfkinit2b at CheckThat! 2025: Leveraging LLMs and Ensemble of Methods for Multilingual Claim Normalization}, 
+      author={Tatiana Anikina and Ivan Vykopal and Sebastian Kula and Ravi Kiran Chikkala and Natalia Skachkova and Jing Yang and Veronika Solopova and Cera Schmitt and Simon Ostermann},
+      year={2025},
+}
+```
