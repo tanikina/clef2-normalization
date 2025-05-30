@@ -47,21 +47,21 @@ pip install -r requirements.txt
 
 ### Data Preprocessing
 
-Before running the experiments, especially for few-shot prompting, you need to preprocess the data.
+To filter and prepare the data for each language (see [Data](#data)), run: 
 
-To clean the input data and select demonstrations based on cosine similarity, run:
+```
+python src/utils/prepare_data.py --target_lang=all
+```
+
+Before running the prompting experiments, especially for few-shot prompting, you need to further preprocess the data.
+
+To clean the input data and select demonstrations based on cosine similarity (relevant only for prompting experiments), run:
 
 ```bash
 python -m scripts.cleanup_inputs_re
 ```
 
 This will create a `./clean_data` directory and generate a list of posts for each language, sorted by cosine similarity. These can be used to select few-shot demonstrations.
-
-To further filter and prepare the data for each language (see [Data](#data)), run: 
-
-```
-python src/utils/prepare_data.py --target_lang=all
-```
 
 ### Prompting Experiments
 
@@ -125,7 +125,7 @@ If you use the code or information from this repository, please cite our paper.
 ```bibtex
 @misc{anikina2025dfkinit2b,
       title={dfkinit2b at CheckThat! 2025: Leveraging LLMs and Ensemble of Methods for Multilingual Claim Normalization}, 
-      author={Tatiana Anikina and Ivan Vykopal and Sebastian Kula Ravi Kiran Chikkala and Natalia Skachkova and Jing Yang and Veronika Solopova and Cera Schmitt and Simon Ostermann},
+      author={Tatiana Anikina and Ivan Vykopal and Sebastian Kula and Ravi Kiran Chikkala and Natalia Skachkova and Jing Yang and Veronika Solopova and Cera Schmitt and Simon Ostermann},
       year={2025},
 }
 ```
