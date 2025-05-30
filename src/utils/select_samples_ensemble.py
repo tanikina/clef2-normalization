@@ -39,7 +39,32 @@ def prepare_data(target_lang: str):
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Data preparation parameters.")
+    parser.add_argument("--setting", type=str, choices=["monolingual", "zeroshot", "all"])
+    args = parser.parse_args()
+    zeroshot_langs = ["kor", "ces", "ron", "ell", "te", "nld", "bn"]
+    monolingual_langs = [
+        "pol",
+        "msa",
+        "deu",
+        "tha",
+        "ara",
+        "ta",
+        "pa",
+        "mr",
+        "hi",
+        "por",
+        "spa",
+        "fra",
+        "eng",
+    ]
+    if args.setting == "monolingual":
+        languages = monolingual_langs
+    elif args.setting == "zeroshot":
+        languages = zeroshot_langs
+    else:
+        languages = monolingual_langs + zeroshot_langs
     # this assumes that we have a separate folder for each language
     # that contains the annotated test set, each file is an output of a different model/approach
-    for lang in ["kor", "ces", "ron", "ell", "te", "nld", "bn"]:
+    for lang in languages:
         prepare_data(lang)
