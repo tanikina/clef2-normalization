@@ -79,7 +79,7 @@ This script will run zero-shot and few-shot prompting experiments across five mo
 
 To evaluate the outputs of the prompting experiments, open and run the notebook `Final Evaluation.ipynb`.
 
-### Adapter fine-tuning
+### Adapter Fine-tuning
 
 Adapter fine-tuning with Qwen3 and Gemma3 can be done as follows (example for German with verbose instruction and combined filtered data, replace `model_name` with `unsloth/gemma-3-27b-it` for fine-tuning Gemma3 adapters):
 
@@ -108,7 +108,7 @@ python src/models/adapter_inference.py \
 
 The generated normalized claims will be stored in `outputs/task2_{target_lang}.csv`.
 
-### Ensemble of methods
+### Ensemble of Methods
 
 In order to select the most representative samples with the ensemble methods, you will need to place all the outputs from different models in a folder with the corresponding language id (e.g. `deu/task2_deu.csv`, `deu/task2_deu_v2.csv` etc.) and then run `python src/utils/select_samples_ensemble.py --setting={monolingual|zeroshot|all}`.
 
@@ -118,14 +118,14 @@ Information regarding the task and data can be found in the following paper:
 
 > Megha Sundriyal, Tanmoy Chakraborty, and Preslav Nakov. [From Chaos to Clarity: Claim Normalization to Empower Fact-Checking.](https://aclanthology.org/2023.findings-emnlp.439/) Findings of the Association for Computational Linguistics: EMNLP 2023. 2023. pp. 6594 - 6609.
 
-## Paper citing
+## Paper Citation
 
 If you use the code or information from this repository, please cite our paper.
 
 ```bibtex
 @misc{anikina2025dfkinit2b,
       title={dfkinit2b at CheckThat! 2025: Leveraging LLMs and Ensemble of Methods for Multilingual Claim Normalization}, 
-      author={Tatiana Anikina and Ivan Vykopal and Sebastian Kula and Ravi Kiran Chikkala and Natalia Skachkova and Jing Yang and Veronika Solopova and Cera Schmitt and Simon Ostermann},
+      author={Tatiana Anikina and Ivan Vykopal and Sebastian Kula and Ravi Kiran Chikkala and Natalia Skachkova and Jing Yang and Veronika Solopova and Vera Schmitt and Simon Ostermann},
       year={2025},
 }
 ```
