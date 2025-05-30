@@ -1,6 +1,6 @@
-# CLEF Task 2: Claim Normalization
+## dfkinit2b at CheckThat! 2025:<br>Leveraging LLMs and Ensemble of Methods for Multilingual Claim Normalization
 
-The text below was copied from the official task repository: [https://gitlab.com/checkthat_lab/clef2025-checkthat-lab/-/tree/main/task2](https://gitlab.com/checkthat_lab/clef2025-checkthat-lab/-/tree/main/task2)
+The task description is based on the official shared task repository: [https://gitlab.com/checkthat_lab/clef2025-checkthat-lab/-/tree/main/task2](https://gitlab.com/checkthat_lab/clef2025-checkthat-lab/-/tree/main/task2)
 
 Given a noisy, unstructured social media post, the task is to simplify it into a concise form.
 This is a text generation task in which systems have to generate the normlized claims for the goven social media posts.
@@ -10,63 +10,13 @@ The task comprises two settings:
 - **Monolingual**: In this setup, the training, development, and test datasets are all provided for the specific language. The model is trained, validated, and tested using data exclusively from this single language, meaning that all the stages (training, validation, and testing) are confined to the same language. This setup ensures that the model learns language-specific patterns and structures. Languages: English, German, French, Spanish, Portuguese, Hindi, Marathi, Punjabi, Tamil, Arabic, Thai, Indonesian, and Polish.
 - **Zero-shot**: In this case, only the test data is available for the specific language, and you are not provided with any training or development data for that language. You are free to use data from other languages for training your models, or you can choose to conduct a zero-shot experiment using LLMs where the model is tested on the target language without being exposed to any training data. This approach evaluates how well the model can generalize to unseen languages. Languages: Dutch, Romanian, Bengali, Telugu, Korean, Greek, and Czech.
 
-__Table of contents:__
+## Data
 
-<!-- - [Evaluation Results](#evaluation-results) -->
-
-- [List of Versions](#list-of-versions)
-- [Contents of the Task 2 Directory](#contents-of-the-repository)
-- [Input Data Format](#input-data-format)
-- [Output Data Format](#output-data-format)
-- [Evaluation Metrics](#evaluation-metrics)
-- [Credits](#credits)
-
-<!-- ## Evaluation Results
-
-
-## List of Versions
-- [20/01/2025] Data released.
-
-<!-- * **subtask-2A-english**
-  - [03/05/2023] (unlabeled) test data are released.
-  - [21/02/2023] previously released training data contained also validation data, they are now split in two separate files.
-  - [30/01/2023] training data are released.
-* **subtask-2A-arabic**
-  - [03/05/2023] (unlabeled) test data are released.
-  - [10/03/2023] training and validation data are released.
-* **subtask-2A-dutch**
-  - [03/05/2023] (unlabeled) test data are released.
-  - [16/03/2023] training and validation data are released.
-* **subtask-2A-german**
-  - [03/05/2023] (unlabeled) test data are released.
-  - [02/03/2023] training and validation data are released.
-* **subtask-2A-italian**
-  - [03/05/2023] (unlabeled) test data are released.
-  - [21/02/2023] validation data are released.
-  - [30/01/2023] training data are released.
-* **subtask-2A-turkish**
-  - [03/05/2023] (unlabeled) test data are released.
-  - [02/03/2023] training and validation data are released.
-* **subtask-2A-multilingual**
-  - [03/05/2023] (unlabeled) test data are released.
-  - [23/03/2023] training and validation data are released. -->
-
-## Contents of the Task 2 Directory
-
-- Data folder: [data](./data)
-  - Contains a subfolder for  train, test and dev sets.
-  - Each split has subfolders for each language, in the csv format.
-
-<!-- - Main folder: [baseline](./baseline)<br/>
-  - Contains a single file, baseline.py, used to train a baseline and provide predictions.
-- Main folder: [scorer](./scorer)<br/>
-  - Contains a single file, evaluate.py, that checks the format of a submission and evaluate the various metrics. -->
-
-- [README.md](./README.md)
+The data for the shared task can be found in the official GitLab repository: [https://gitlab.com/checkthat_lab/clef2025-checkthat-lab/-/tree/main/task2](https://gitlab.com/checkthat_lab/clef2025-checkthat-lab/-/tree/main/task2). There should be three folders with train, dev and test data, and each split has subfolders for each language, in the csv format. In order to pre-process the data to remove duplicates and discard claim-post pairs with very low similarity you can run `python src/utils/prepare_data.py --target_lang=all`.
 
 ## Input Data Format
 
-The data will be provided as a CSV file with two columns:
+The data are provided as a CSV file with two columns:
 
 > post, <TAB> normalized claim
 
@@ -76,57 +26,50 @@ The output must be a CSV format with only one column:
 
 > normalized claim.
 
-DO NOT shuffle the test data.
-
 ## Evaluation Metrics
 
-We will use the METEOR measure for the ranking of teams.
+METEOR [(Banerjee and Lavie, 2005)](https://aclanthology.org/W05-0909.pdf).
 
-<!--
-There is a limit of 5 runs (total and not per day), and only one person from a team is allowed to submit runs.
+## dfkinit2b Submission
 
-Submission Link: Coming Soon
+**_dfkinit2b_** team is a collaboration between [DFKI](https://dfki.de), [KInIT](https://kinit.sk) and [TU Berlin](https://www.tu.berlin). Our team tested a variety of prompting approaches with different LLMs, fine-tuned adapters, and used an ensemble of methods to find the most representative claim among the generated ones for each post. See our ranking on CodaLab: [https://codalab.lisn.upsaclay.fr/competitions/22801#results](https://codalab.lisn.upsaclay.fr/competitions/22801#results) and the summary with the scores and the best approach for each language below:
+![results](https://github.com/user-attachments/assets/33d5887a-b3c5-44b7-91f8-9c0dbae5844a)
 
-Evaluation File task3/evaluation/CLEF_-_CheckThat__Task3ab_-_Evaluation.txt -->
+## Reproducibility
 
-<!-- ## Scorers
+\[WIP\] For the prompting experiments please refer to [`scripts/prompting_experiments.py`](https://github.com/tanikina/clef2-normalization/blob/main/scripts/prompting_experiments.py) and have a look at the [`notebooks`](https://github.com/tanikina/clef2-normalization/tree/main/notebooks) folder for evaluation.
 
-To evaluate the output of your model which should be in the output format required, please run the script below:
+Adapter fine-tuning with Qwen3 and Gemma3 can be done as follows (example for German with verbose instruction and combined filtered data, replace `model_name` with `unsloth/gemma-3-27b-it` for fine-tuning Gemma3 adapters):
 
-> python evaluate.py -g dev_truth.tsv -p dev_predicted.tsv
+```
+python src/models/model_with_adapters.py \
+--model_name=unsloth/Qwen3-14B \
+--max_seq_length=2048 \
+--train_language_code=deu \
+--val_language_code=deu \
+--input_folder=data/combined_filtered \
+--num_epochs=3 \
+--learning_rate=2e-4 \
+--lr_scheduler=linear \
+--instruction_type=verbose_instruction \
+--save_adapters_folder=adapters_verbose_instruction_qwen3_2048
+```
 
-where dev_predicted.tsv is the output of your model on the dev set, and dev_truth.tsv is the golden label file provided by us.
+Next, you will need to load the fine-tuned adapters and run the inference:
 
-The file can be used also to validate the format of the submission, simply use the provided test file as gold data.
-The evaluation will not be performed, but the format of your input will be checked.
+```
+python src/models/adapter_inference.py \
+--model_name=adapters_verbose_instruction_qwen3_2048/Qwen3-14B-deu \
+--instruction_type=verbose_instruction \
+--target_lang=deu
+```
 
+The generated normalized claims will be stored in `outputs/task2_{target_lang}.csv`.
 
-## Baselines
-
-The script to train the baseline is provided in the related directory.
-The script can be run as follow:
-
-> python baseline.py -trp train_data.tsv -ttp dev_data.tsv
-
-where train_data.tsv is the file to be used for training and dev_data.tsv is the file on which doing the prediction.
-
-The baseline is a logistic regressor trained on a Sentence-BERT multilingual representation of the data.
-
-<!-- ### Task 3: Multi-Class Fake News Detection of News Articles
-
-For this task, we have created a baseline system. The baseline system can be found at https://zenodo.org/record/6362498
- -->
-
-## Submission
-
-TBA
+In order to select the most representative samples with the ensemble methods, you will need to place all the outputs from different models in a folder with the corresponding language id (e.g. `deu/task2_deu.csv`, `deu/task2_deu_v2.csv` etc.) and then run `python extra/select_samples_ensemble.py --setting={monolingual|zeroshot|all}`.
 
 ## Related Work
 
 Information regarding the task and data can be found in the following paper:
 
 > Megha Sundriyal, Tanmoy Chakraborty, and Preslav Nakov. [From Chaos to Clarity: Claim Normalization to Empower Fact-Checking.](https://aclanthology.org/2023.findings-emnlp.439/) Findings of the Association for Computational Linguistics: EMNLP 2023. 2023. pp. 6594 - 6609.
-
-## Credits
-
-Please find it on the task website: https://checkthat.gitlab.io/clef2025/task2/
